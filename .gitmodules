@@ -1,0 +1,3 @@
+[submodule "ext/json-framework"]
+	path = ext/json-framework
+	url = git://github.com/stig/json-framework

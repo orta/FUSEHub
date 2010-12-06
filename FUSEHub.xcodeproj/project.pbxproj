@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6077C93D12AD661E00E32F07 /* GHBlobParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6077C93C12AD661E00E32F07 /* GHBlobParser.m */; };
+		6077C94412AD6A5300E32F07 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6077C94312AD6A5300E32F07 /* JSON.framework */; };
+		6077C94612AD6A6700E32F07 /* JSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6077C94312AD6A5300E32F07 /* JSON.framework */; };
 		6091D3E412AD5612005722BD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6091D3E312AD5612005722BD /* Cocoa.framework */; };
 		6091D3E912AD5612005722BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6091D3E712AD5612005722BD /* InfoPlist.strings */; };
 		6091D3EB12AD5612005722BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6091D3EA12AD5612005722BD /* main.m */; };
@@ -18,7 +21,23 @@
 		6091D40712AD5805005722BD /* Fuse.icns in Resources */ = {isa = PBXBuildFile; fileRef = 6091D40612AD5805005722BD /* Fuse.icns */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		6077C94512AD6A6100E32F07 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6077C94612AD6A6700E32F07 /* JSON.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		6077C93B12AD661E00E32F07 /* GHBlobParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHBlobParser.h; sourceTree = "<group>"; };
+		6077C93C12AD661E00E32F07 /* GHBlobParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHBlobParser.m; sourceTree = "<group>"; };
+		6077C94312AD6A5300E32F07 /* JSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSON.framework; sourceTree = "<group>"; };
 		6091D3E012AD5612005722BD /* FUSEHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FUSEHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6091D3E312AD5612005722BD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		6091D3E512AD5612005722BD /* FUSEHub-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FUSEHub-Info.plist"; sourceTree = "<group>"; };
@@ -42,6 +61,7 @@
 			files = (
 				6091D3E412AD5612005722BD /* Cocoa.framework in Frameworks */,
 				6091D40212AD569E005722BD /* MacFUSE.framework in Frameworks */,
+				6077C94412AD6A5300E32F07 /* JSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +86,8 @@
 				6091D3F312AD5612005722BD /* FUSEHubAppDelegate.m */,
 				6091D40312AD56D0005722BD /* GHFileSystem.h */,
 				6091D40412AD56D0005722BD /* GHFileSystem.m */,
+				6077C93B12AD661E00E32F07 /* GHBlobParser.h */,
+				6077C93C12AD661E00E32F07 /* GHBlobParser.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -94,6 +116,7 @@
 		6091D3DB12AD5612005722BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6077C94312AD6A5300E32F07 /* JSON.framework */,
 				6091D40112AD569E005722BD /* MacFUSE.framework */,
 				6091D3E312AD5612005722BD /* Cocoa.framework */,
 			);
@@ -118,6 +141,7 @@
 				6091D3DC12AD5612005722BD /* Sources */,
 				6091D3DD12AD5612005722BD /* Frameworks */,
 				6091D3DE12AD5612005722BD /* Resources */,
+				6077C94512AD6A6100E32F07 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -175,6 +199,7 @@
 				6091D3EB12AD5612005722BD /* main.m in Sources */,
 				6091D3F412AD5612005722BD /* FUSEHubAppDelegate.m in Sources */,
 				6091D40512AD56D0005722BD /* GHFileSystem.m in Sources */,
+				6077C93D12AD661E00E32F07 /* GHBlobParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +269,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
@@ -262,6 +291,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

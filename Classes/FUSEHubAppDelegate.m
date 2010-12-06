@@ -15,13 +15,21 @@
 @synthesize window;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-
+  
+  
+//  FUSE stuff
   NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
   [center addObserver:self selector:@selector(didMount:)
                  name:kGMUserFileSystemDidMount object:nil];
   [center addObserver:self selector:@selector(didUnmount:)
                  name:kGMUserFileSystemDidUnmount object:nil];
-  
+
+  //Bookmark stuff
+  [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self
+                                                     andSelector:@selector(gotIncomingURL: withReplyEvent:) 
+                                                   forEventClass:kInternetEventClass
+                                                      andEventID:kAEGetURL];  
+
   
   
   NSString* mountPath = @"/Volumes/Hello";
@@ -54,6 +62,19 @@
   [[fs_ delegate] release];  // Clean up HelloFS
   [fs_ release];
   return NSTerminateNow;
+}
+
+- (void) gotIncomingURL:(NSAppleEventDescriptor*) event withReplyEvent:(NSAppleEventDescriptor *) reply{
+  NSString *incomingURL = [[event descriptorForKeyword: '----'] stringValue];
+  NSArray *fields = [incomingURL componentsSeparatedByString:@"&"];
+  NSEnumerator *e = [fields objectEnumerator];
+  NSString *field = @"";
+  while ((field = [e nextObject])) {
+    NSArray *keyvalue = [field componentsSeparatedByString:@"="];
+    NSString *key = [keyvalue objectAtIndex:0] ;
+    NSString *value = [keyvalue objectAtIndex:1];
+    NSLog(@"key = '%@' - value = '%@'", key, value); 
+  }
 }
 
 
