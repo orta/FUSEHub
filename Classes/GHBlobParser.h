@@ -10,7 +10,7 @@
 
 @protocol GHBlob <NSObject>
 @required
-- (void)addItemToStore:(NSString*) item;
+ - (void)addItemToStore:(NSString*) item;
 @end
 
 

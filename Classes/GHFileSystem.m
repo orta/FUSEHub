@@ -30,7 +30,7 @@ static NSString *helloPath = @"/hello.txt";
 }
 
 - (NSArray *)contentsOfDirectoryAtPath:(NSString *)path error:(NSError **)error {
-  return [NSArray arrayWithObject:[helloPath lastPathComponent]];
+  return [root stringArray];
 }
 
 - (NSData *)contentsAtPath:(NSString *)path {
@@ -52,8 +52,16 @@ static NSString *helloPath = @"/hello.txt";
 }
 
 - (void)addItemToStore:(NSString*) item{
-  NSLog(@"hello %@", item);
+  
+  if ([item rangeOfString:@"/"].location == NSNotFound) {
+    NSLog(@"hello %@", item);
+    
+    GHFile* node = [[GHFile alloc] init];
+    node.name = item;
+    [root add:node];
+  }
+  
+  return;
 }
-
 
 @end

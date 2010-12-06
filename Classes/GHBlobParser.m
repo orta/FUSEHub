@@ -26,8 +26,8 @@
           
           NSArray *lines = [body componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
           NSUInteger i, count = [lines count];
-          // there are 2 lines we dont want at the top
-          for (i = 2; i < count; i++) {
+          // there are 2 lines we dont want at the top, and a blank newline at the end
+          for (i = 2; i < count-1; i++) {
             NSString * line = [lines objectAtIndex:i];
             NSString * item = [[line componentsSeparatedByString:@":"] objectAtIndex:0];
             item = [item stringByReplacingOccurrencesOfString:@" " withString:@""];

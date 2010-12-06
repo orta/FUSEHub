@@ -13,4 +13,39 @@
 
 @synthesize name, children;
 
+- (NSString *) UTF8String{
+  return self.name;
+}
+
+
+- (NSString *) description{
+  return self.name;
+}
+
+- (GHFile*) findChildWithName:(NSString *) string{
+  NSUInteger i, count = [self.children count];
+  for (i = 0; i < count; i++) {
+    GHFile *item = [self.children objectAtIndex:i];
+    if([item.name isEqualToString:string]){
+      return item;
+    }
+  }
+  return nil;
+}
+
+- (void) add:(GHFile *)node{
+  [self.children addObject:node];
+}
+
+- (NSArray *) stringArray{
+  NSMutableArray * stringArray = [NSMutableArray array];
+  NSUInteger i, count = [self.children count];
+  for (i = 0; i < count; i++) {
+    GHFile *item = [self.children objectAtIndex:i];
+    [stringArray addObject:item.name];
+  }
+  return stringArray;
+}
+
+
 @end

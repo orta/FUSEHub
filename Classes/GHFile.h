@@ -16,4 +16,8 @@
 @property (retain) NSMutableArray *children;
 @property (retain) NSString *name;
 
+- (GHFile*) findChildWithName:(NSString *) string;
+- (void) add:(GHFile *)node;
+- (NSArray *) stringArray;
+
 @end
