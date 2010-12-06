@@ -13,19 +13,26 @@
 		6091D3EE12AD5612005722BD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6091D3EC12AD5612005722BD /* MainMenu.xib */; };
 		6091D3F112AD5612005722BD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6091D3EF12AD5612005722BD /* Credits.rtf */; };
 		6091D3F412AD5612005722BD /* FUSEHubAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6091D3F312AD5612005722BD /* FUSEHubAppDelegate.m */; };
+		6091D40212AD569E005722BD /* MacFUSE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6091D40112AD569E005722BD /* MacFUSE.framework */; };
+		6091D40512AD56D0005722BD /* GHFileSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6091D40412AD56D0005722BD /* GHFileSystem.m */; };
+		6091D40712AD5805005722BD /* Fuse.icns in Resources */ = {isa = PBXBuildFile; fileRef = 6091D40612AD5805005722BD /* Fuse.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6091D3E012AD5612005722BD /* FUSEHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FUSEHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6091D3E312AD5612005722BD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		6091D3E512AD5612005722BD /* FUSEHub-Info.plist */ = {isa = PBXFileReference; path = "FUSEHub-Info.plist"; sourceTree = "<group>"; };
-		6091D3E612AD5612005722BD /* FUSEHub_Prefix.pch */ = {isa = PBXFileReference; path = FUSEHub_Prefix.pch; sourceTree = "<group>"; };
+		6091D3E512AD5612005722BD /* FUSEHub-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FUSEHub-Info.plist"; sourceTree = "<group>"; };
+		6091D3E612AD5612005722BD /* FUSEHub_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUSEHub_Prefix.pch; sourceTree = "<group>"; };
 		6091D3E812AD5612005722BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6091D3EA12AD5612005722BD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6091D3ED12AD5612005722BD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		6091D3F012AD5612005722BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		6091D3F212AD5612005722BD /* FUSEHubAppDelegate.h */ = {isa = PBXFileReference; path = FUSEHubAppDelegate.h; sourceTree = "<group>"; };
+		6091D3F212AD5612005722BD /* FUSEHubAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FUSEHubAppDelegate.h; sourceTree = "<group>"; };
 		6091D3F312AD5612005722BD /* FUSEHubAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FUSEHubAppDelegate.m; sourceTree = "<group>"; };
+		6091D40112AD569E005722BD /* MacFUSE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacFUSE.framework; path = /Library/Frameworks/MacFUSE.framework; sourceTree = "<absolute>"; };
+		6091D40312AD56D0005722BD /* GHFileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHFileSystem.h; sourceTree = "<group>"; };
+		6091D40412AD56D0005722BD /* GHFileSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHFileSystem.m; sourceTree = "<group>"; };
+		6091D40612AD5805005722BD /* Fuse.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Fuse.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +41,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6091D3E412AD5612005722BD /* Cocoa.framework in Frameworks */,
+				6091D40212AD569E005722BD /* MacFUSE.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +64,8 @@
 			children = (
 				6091D3F212AD5612005722BD /* FUSEHubAppDelegate.h */,
 				6091D3F312AD5612005722BD /* FUSEHubAppDelegate.m */,
+				6091D40312AD56D0005722BD /* GHFileSystem.h */,
+				6091D40412AD56D0005722BD /* GHFileSystem.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -72,6 +82,7 @@
 		6091D3DA12AD5612005722BD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6091D40612AD5805005722BD /* Fuse.icns */,
 				6091D3E512AD5612005722BD /* FUSEHub-Info.plist */,
 				6091D3E712AD5612005722BD /* InfoPlist.strings */,
 				6091D3EC12AD5612005722BD /* MainMenu.xib */,
@@ -83,6 +94,7 @@
 		6091D3DB12AD5612005722BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6091D40112AD569E005722BD /* MacFUSE.framework */,
 				6091D3E312AD5612005722BD /* Cocoa.framework */,
 			);
 			name = Frameworks;
@@ -149,6 +161,7 @@
 				6091D3E912AD5612005722BD /* InfoPlist.strings in Resources */,
 				6091D3EE12AD5612005722BD /* MainMenu.xib in Resources */,
 				6091D3F112AD5612005722BD /* Credits.rtf in Resources */,
+				6091D40712AD5805005722BD /* Fuse.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +174,7 @@
 			files = (
 				6091D3EB12AD5612005722BD /* main.m in Sources */,
 				6091D3F412AD5612005722BD /* FUSEHubAppDelegate.m in Sources */,
+				6091D40512AD56D0005722BD /* GHFileSystem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

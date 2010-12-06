@@ -8,8 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
+
+@class GMUserFileSystem;
+
 @interface FUSEHubAppDelegate : NSObject <NSApplicationDelegate> {
   NSWindow *window;
+  GMUserFileSystem* fs_;
+
 }
 
 @property (retain) IBOutlet NSWindow *window;
