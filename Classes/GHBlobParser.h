@@ -8,10 +8,20 @@
 
 #import <Cocoa/Cocoa.h>
 
+@protocol GHBlob <NSObject>
+@required
+- (void)addItemToStore:(NSString*) item;
+@end
+
+
 
 @interface GHBlobParser : NSObject {
-@private
-    
+  NSObject <GHBlob> * delegate;
+  NSString* address;
 }
+
+- (id)initWithGitHubURL:(NSString*) blobaddress andDelegate:(id <GHBlob>) newDelegate;
+
+@property (retain) NSString* address;
 
 @end

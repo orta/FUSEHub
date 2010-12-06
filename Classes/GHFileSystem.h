@@ -7,11 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GHBlobParser.h"
 
+@class GHFile;
 
-@interface GHFileSystem : NSObject {
-@private
-    
+@interface GHFileSystem : NSObject <GHBlob> {
+  GHFile *root;
 }
+
+- (void)addItemToStore:(NSString*) item;
 
 @end

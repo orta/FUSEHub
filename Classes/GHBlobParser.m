@@ -7,21 +7,40 @@
 //
 
 #import "GHBlobParser.h"
-
+#import "Seriously.h"
 
 @implementation GHBlobParser
 
-- (id)init {
+@synthesize address;
+
+- (id)initWithGitHubURL:(NSString*) blobaddress andDelegate:(id <GHBlob>) newDelegate {
     if ((self = [super init])) {
-        // Initialization code here.
+      self.address = blobaddress;
+      delegate = newDelegate;
+      
+      [Seriously get:self.address handler:^(id body, NSHTTPURLResponse *response, NSError *error) {
+        if (error) {
+          NSLog(@"Error: %@", error);
+        }
+        else {
+          
+          NSArray *lines = [body componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+          NSUInteger i, count = [lines count];
+          // there are 2 lines we dont want at the top
+          for (i = 2; i < count; i++) {
+            NSString * line = [lines objectAtIndex:i];
+            NSString * item = [[line componentsSeparatedByString:@":"] objectAtIndex:0];
+            item = [item stringByReplacingOccurrencesOfString:@" " withString:@""];
+            [delegate addItemToStore:item];
+          }
+        }
+      }];
     }
-    
     return self;
 }
 
+
 - (void)dealloc {
-    // Clean-up code here.
-    
     [super dealloc];
 }
 

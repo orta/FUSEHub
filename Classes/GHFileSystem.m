@@ -8,13 +8,26 @@
 
 #import "GHFileSystem.h"
 #import <MacFUSE/MacFUSE.h>
-
+#import "GHBlobParser.h"
+#import "GHFile.h"
 
 @implementation GHFileSystem
 
 static NSString *helloStr = @"Hello World!\n";
 static NSString *helloPath = @"/hello.txt";
 
+
+- (id) init{
+  self = [super init];
+  GHBlobParser* parser = [[GHBlobParser alloc] initWithGitHubURL:@"http://github.com/api/v2/yaml/blob/all/defunkt/facebox/master" andDelegate:self];
+  [parser retain];
+  
+  root = [[GHFile alloc] init];
+  root.name = @"root";
+  root.children = [NSMutableArray array];
+
+  return self;
+}
 
 - (NSArray *)contentsOfDirectoryAtPath:(NSString *)path error:(NSError **)error {
   return [NSArray arrayWithObject:[helloPath lastPathComponent]];
@@ -38,14 +51,8 @@ static NSString *helloPath = @"/hello.txt";
   return nil;
 }
 
-- (NSDictionary *)resourceAttributesAtPath:(NSString *)path
-                                     error:(NSError **)error {
-  if ([path isEqualToString:helloPath]) {
-    NSString *file = [[NSBundle mainBundle] pathForResource:@"hellodoc" ofType:@"icns"];
-    return [NSDictionary dictionaryWithObject:[NSData dataWithContentsOfFile:file]
-                                       forKey:kGMUserFileSystemCustomIconDataKey];
-  }
-  return nil;
+- (void)addItemToStore:(NSString*) item{
+  NSLog(@"hello %@", item);
 }
 
 
