@@ -19,9 +19,9 @@ static NSString *helloPath = @"/hello.txt";
 
 - (id) init{
   self = [super init];
-  GHBlobParser* parser = [[GHBlobParser alloc] initWithGitHubURL:@"http://github.com/api/v2/yaml/blob/all/defunkt/facebox/master" andDelegate:self];
+  GHBlobParser* parser = [[GHBlobParser alloc] initWithGitHubURL:@"http://github.com/api/v2/yaml/blob/all/orta/tickets/master" andDelegate:self];
   [parser retain];
-  
+
   root = [[GHFile alloc] init];
   root.name = @"root";
   root.children = [NSMutableArray array];
@@ -30,13 +30,26 @@ static NSString *helloPath = @"/hello.txt";
 }
 
 - (NSArray *)contentsOfDirectoryAtPath:(NSString *)path error:(NSError **)error {
+  NSLog(@"contents of dir: %@", path);
   return [root stringArray];
 }
 
 - (NSData *)contentsAtPath:(NSString *)path {
-  if ([path isEqualToString:helloPath])
-    return [helloStr dataUsingEncoding:NSUTF8StringEncoding];
-  return nil;
+  if ([path rangeOfString:@"_"].location != NSNotFound) {
+    return nil;
+  }
+  NSLog(@"contents at path: %@", path);
+  NSString * address = [NSString stringWithFormat:@"https://github.com/orta/tickets/raw/master%@", path];
+  NSURL *url = [ NSURL URLWithString: address]; 
+  NSURLRequest *req = [ NSURLRequest requestWithURL:url
+                                        cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                    timeoutInterval:30.0 ];
+  NSError *err;
+  NSURLResponse *res;
+  NSData *d = [ NSURLConnection sendSynchronousRequest:req
+                                     returningResponse:&res
+                                                 error:&err ];
+  return d;
 }
 
 #pragma optional Custom Icon
