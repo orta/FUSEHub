@@ -1,0 +1,286 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6091D3E412AD5612005722BD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6091D3E312AD5612005722BD /* Cocoa.framework */; };
+		6091D3E912AD5612005722BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6091D3E712AD5612005722BD /* InfoPlist.strings */; };
+		6091D3EB12AD5612005722BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6091D3EA12AD5612005722BD /* main.m */; };
+		6091D3EE12AD5612005722BD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6091D3EC12AD5612005722BD /* MainMenu.xib */; };
+		6091D3F112AD5612005722BD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6091D3EF12AD5612005722BD /* Credits.rtf */; };
+		6091D3F412AD5612005722BD /* FUSEHubAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6091D3F312AD5612005722BD /* FUSEHubAppDelegate.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6091D3E012AD5612005722BD /* FUSEHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FUSEHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6091D3E312AD5612005722BD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		6091D3E512AD5612005722BD /* FUSEHub-Info.plist */ = {isa = PBXFileReference; path = "FUSEHub-Info.plist"; sourceTree = "<group>"; };
+		6091D3E612AD5612005722BD /* FUSEHub_Prefix.pch */ = {isa = PBXFileReference; path = FUSEHub_Prefix.pch; sourceTree = "<group>"; };
+		6091D3E812AD5612005722BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6091D3EA12AD5612005722BD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6091D3ED12AD5612005722BD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		6091D3F012AD5612005722BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		6091D3F212AD5612005722BD /* FUSEHubAppDelegate.h */ = {isa = PBXFileReference; path = FUSEHubAppDelegate.h; sourceTree = "<group>"; };
+		6091D3F312AD5612005722BD /* FUSEHubAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FUSEHubAppDelegate.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6091D3DD12AD5612005722BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6091D3E412AD5612005722BD /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6091D3D112AD5611005722BD = {
+			isa = PBXGroup;
+			children = (
+				6091D3D812AD5612005722BD /* Classes */,
+				6091D3D912AD5612005722BD /* Other Sources */,
+				6091D3DA12AD5612005722BD /* Resources */,
+				6091D3DB12AD5612005722BD /* Frameworks */,
+				6091D3E112AD5612005722BD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6091D3D812AD5612005722BD /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				6091D3F212AD5612005722BD /* FUSEHubAppDelegate.h */,
+				6091D3F312AD5612005722BD /* FUSEHubAppDelegate.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		6091D3D912AD5612005722BD /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				6091D3E612AD5612005722BD /* FUSEHub_Prefix.pch */,
+				6091D3EA12AD5612005722BD /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		6091D3DA12AD5612005722BD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6091D3E512AD5612005722BD /* FUSEHub-Info.plist */,
+				6091D3E712AD5612005722BD /* InfoPlist.strings */,
+				6091D3EC12AD5612005722BD /* MainMenu.xib */,
+				6091D3EF12AD5612005722BD /* Credits.rtf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		6091D3DB12AD5612005722BD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6091D3E312AD5612005722BD /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6091D3E112AD5612005722BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6091D3E012AD5612005722BD /* FUSEHub.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6091D3DF12AD5612005722BD /* FUSEHub */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6091D3F712AD5612005722BD /* Build configuration list for PBXNativeTarget "FUSEHub" */;
+			buildPhases = (
+				6091D3DC12AD5612005722BD /* Sources */,
+				6091D3DD12AD5612005722BD /* Frameworks */,
+				6091D3DE12AD5612005722BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FUSEHub;
+			productName = FUSEHub;
+			productReference = 6091D3E012AD5612005722BD /* FUSEHub.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6091D3D312AD5611005722BD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "http://www.ortatherox.com";
+			};
+			buildConfigurationList = 6091D3D612AD5611005722BD /* Build configuration list for PBXProject "FUSEHub" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6091D3D112AD5611005722BD;
+			productRefGroup = 6091D3E112AD5612005722BD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6091D3DF12AD5612005722BD /* FUSEHub */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6091D3DE12AD5612005722BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6091D3E912AD5612005722BD /* InfoPlist.strings in Resources */,
+				6091D3EE12AD5612005722BD /* MainMenu.xib in Resources */,
+				6091D3F112AD5612005722BD /* Credits.rtf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6091D3DC12AD5612005722BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6091D3EB12AD5612005722BD /* main.m in Sources */,
+				6091D3F412AD5612005722BD /* FUSEHubAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6091D3E712AD5612005722BD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6091D3E812AD5612005722BD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		6091D3EC12AD5612005722BD /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6091D3ED12AD5612005722BD /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		6091D3EF12AD5612005722BD /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6091D3F012AD5612005722BD /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6091D3F512AD5612005722BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		6091D3F612AD5612005722BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PREBINDING = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		6091D3F812AD5612005722BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = FUSEHub_Prefix.pch;
+				INFOPLIST_FILE = "FUSEHub-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		6091D3F912AD5612005722BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = FUSEHub_Prefix.pch;
+				INFOPLIST_FILE = "FUSEHub-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6091D3D612AD5611005722BD /* Build configuration list for PBXProject "FUSEHub" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6091D3F512AD5612005722BD /* Debug */,
+				6091D3F612AD5612005722BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6091D3F712AD5612005722BD /* Build configuration list for PBXNativeTarget "FUSEHub" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6091D3F812AD5612005722BD /* Debug */,
+				6091D3F912AD5612005722BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6091D3D312AD5611005722BD /* Project object */;
+}
