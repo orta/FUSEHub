@@ -10,6 +10,8 @@
 #import <MacFUSE/MacFUSE.h>
 #import "GHBlobParser.h"
 #import "GHFile.h"
+#import "ASIHTTPRequest.h"
+#import "ASIDownloadCache.h"
 
 @implementation GHFileSystem
 
@@ -25,7 +27,11 @@ static NSString *helloPath = @"/hello.txt";
   root = [[GHFile alloc] init];
   root.name = @"root";
   root.children = [NSMutableArray array];
-
+  
+  [[ASIDownloadCache sharedCache] setCacheMode:ASIOnlyLoadIfNotCachedCachePolicy];
+  [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
+  
+  
   return self;
 }
 
@@ -35,10 +41,13 @@ static NSString *helloPath = @"/hello.txt";
 }
 
 - (NSData *)contentsAtPath:(NSString *)path {
+  NSLog(@"contents at path: %@", path);
+
   if ([path rangeOfString:@"_"].location != NSNotFound) {
     return nil;
   }
-  NSLog(@"contents at path: %@", path);
+
+  NSLog(@"getting at path: %@", path);
   NSString * address = [NSString stringWithFormat:@"https://github.com/orta/tickets/raw/master%@", path];
   NSURL *url = [ NSURL URLWithString: address]; 
   NSURLRequest *req = [ NSURLRequest requestWithURL:url
@@ -49,7 +58,19 @@ static NSString *helloPath = @"/hello.txt";
   NSData *d = [ NSURLConnection sendSynchronousRequest:req
                                      returningResponse:&res
                                                  error:&err ];
-  return d;
+    return d;
+
+//  
+//  NSLog(@"getting at path: %@", path);
+//  NSString * address = [NSString stringWithFormat:@"https://github.com/orta/tickets/raw/master%@", path];
+//  NSURL *url = [NSURL URLWithString:address];
+//  ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+//  [request startSynchronous];
+//  NSError *error = [request error];
+//  if (!error) {
+//    return [request responseData];;
+//  }
+//  return nil;
 }
 
 #pragma optional Custom Icon

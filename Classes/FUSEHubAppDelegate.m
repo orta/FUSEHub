@@ -47,8 +47,12 @@
   NSDictionary* userInfo = [notification userInfo];
   NSString* mountPath = [userInfo objectForKey:kGMUserFileSystemMountPathKey];
   NSString* parentPath = [mountPath stringByDeletingLastPathComponent];
-  [[NSWorkspace sharedWorkspace] selectFile:mountPath
-                   inFileViewerRootedAtPath:parentPath];
+  
+  [[NSWorkspace sharedWorkspace] openFile: mountPath withApplication:@"TextMate"];
+
+  
+//  [[NSWorkspace sharedWorkspace] selectFile:mountPath
+//                   inFileViewerRootedAtPath:parentPath];
 }
 
 

@@ -7,7 +7,7 @@
 //
 
 #import "GHBlobParser.h"
-#import "Seriously.h"
+#import "ASIHTTPRequest.h"
 
 @implementation GHBlobParser
 
@@ -18,23 +18,30 @@
       self.address = blobaddress;
       delegate = newDelegate;
       
-      [Seriously get:self.address handler:^(id body, NSHTTPURLResponse *response, NSError *error) {
-        if (error) {
-          NSLog(@"Error: %@", error);
+      NSURL *url = [NSURL URLWithString:self.address];
+      __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+      [request setDelegate:self];
+      [request setCompletionBlock:^{
+        // Use when fetching text data
+        NSString *responseString = [request responseString];
+        
+        NSArray *lines = [responseString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        NSUInteger i, count = [lines count];
+        // there are 2 lines we dont want at the top, and a blank newline at the end
+        for (i = 2; i < count-1; i++) {
+          NSString * line = [lines objectAtIndex:i];
+          NSString * item = [[line componentsSeparatedByString:@":"] objectAtIndex:0];
+          item = [item stringByReplacingOccurrencesOfString:@" " withString:@""];
+          [delegate addItemToStore:item];
         }
-        else {
-          
-          NSArray *lines = [body componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-          NSUInteger i, count = [lines count];
-          // there are 2 lines we dont want at the top, and a blank newline at the end
-          for (i = 2; i < count-1; i++) {
-            NSString * line = [lines objectAtIndex:i];
-            NSString * item = [[line componentsSeparatedByString:@":"] objectAtIndex:0];
-            item = [item stringByReplacingOccurrencesOfString:@" " withString:@""];
-            [delegate addItemToStore:item];
-          }
-        }
+
       }];
+      [request setFailedBlock:^{
+        NSError *error = [request error];
+        NSLog(@"ERROR: %@", [error localizedDescription]);
+      }];
+
+      [request startAsynchronous];
     }
     return self;
 }
