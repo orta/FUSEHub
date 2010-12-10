@@ -13,6 +13,7 @@
 
 @interface GHFileSystem : NSObject <GHBlob> {
   GHFile *root;
+  NSString * temporaryDirectory;
 }
 
 - (void)addItemToStore:(NSString*) item;

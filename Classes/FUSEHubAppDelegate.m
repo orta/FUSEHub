@@ -32,7 +32,7 @@
 
   
   
-  NSString* mountPath = @"/Volumes/Hello";
+  NSString* mountPath = @"/Volumes/github";
   GHFileSystem* fileSystem = [[GHFileSystem alloc] init];
   fs_ = [[GMUserFileSystem alloc] initWithDelegate:fileSystem isThreadSafe:YES];
   NSMutableArray* options = [NSMutableArray array];
