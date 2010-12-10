@@ -7,7 +7,7 @@
 //
 
 #import "GHFile.h"
-
+#import <MacFUSE/MacFUSE.h>
 
 @implementation GHFile
 
@@ -37,12 +37,16 @@
   [self.children addObject:node];
 }
 
-- (NSArray *) stringArray{
+- (NSArray *) fileArray{
   NSMutableArray * stringArray = [NSMutableArray array];
   NSUInteger i, count = [self.children count];
   for (i = 0; i < count; i++) {
     GHFile *item = [self.children objectAtIndex:i];
+//    GMFinderInfo * info = [GMFinderInfo finderInfo];
+    
     [stringArray addObject:item.name];
+    
+    
   }
   return stringArray;
 }

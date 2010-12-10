@@ -18,6 +18,6 @@
 
 - (GHFile*) findChildWithName:(NSString *) string;
 - (void) add:(GHFile *)node;
-- (NSArray *) stringArray;
+- (NSArray *) fileArray;
 
 @end

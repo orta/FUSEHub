@@ -12,12 +12,9 @@
 #import "GHFile.h"
 #import "ASIHTTPRequest.h"
 #import "ASIDownloadCache.h"
+#import "NSError+POSIX.h"
 
 @implementation GHFileSystem
-
-static NSString *helloStr = @"Hello World!\n";
-static NSString *helloPath = @"/hello.txt";
-
 
 - (id) init{
   self = [super init];
@@ -28,16 +25,30 @@ static NSString *helloPath = @"/hello.txt";
   root.name = @"root";
   root.children = [NSMutableArray array];
   
-  [[ASIDownloadCache sharedCache] setCacheMode:ASIOnlyLoadIfNotCachedCachePolicy];
-  [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
-  
+//  [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
+//  [[ASIDownloadCache sharedCache] setCacheMode:ASIOnlyLoadIfNotCachedCachePolicy];
+//
   
   return self;
 }
 
+- (BOOL)fileExistsAtPath:(NSString *)path isDirectory:(BOOL *)isDirectory {
+  if (!path || !isDirectory)
+    return NO;
+  // Handle "._" and "Icon\r" that we don't deal with.
+  NSString* lastComponent = [path lastPathComponent];
+  if ([lastComponent hasPrefix:@"._"] ||
+      [lastComponent isEqualToString:@"Icon\r"]) {
+    return NO;
+  }
+
+  return YES;
+  
+}
+
 - (NSArray *)contentsOfDirectoryAtPath:(NSString *)path error:(NSError **)error {
   NSLog(@"contents of dir: %@", path);
-  return [root stringArray];
+  return [root fileArray];
 }
 
 - (NSData *)contentsAtPath:(NSString *)path {
@@ -47,40 +58,22 @@ static NSString *helloPath = @"/hello.txt";
     return nil;
   }
 
+//  File caching method
+//  NSString *decodedPath = DecodePath([path lastPathComponent]);
+//  NSFileManager *fm = [NSFileManager defaultManager];
+//  attr = [[[fm fileAttributesAtPath:decodedPath traverseLink:NO] mutableCopy] autorelease];
+//  if (!attr)
+//    attr = [NSMutableDictionary dictionary];
+//  [attr setObject:NSFileTypeSymbolicLink forKey:NSFileType];
+  
   NSLog(@"getting at path: %@", path);
   NSString * address = [NSString stringWithFormat:@"https://github.com/orta/tickets/raw/master%@", path];
-  NSURL *url = [ NSURL URLWithString: address]; 
-  NSURLRequest *req = [ NSURLRequest requestWithURL:url
-                                        cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                    timeoutInterval:30.0 ];
-  NSError *err;
-  NSURLResponse *res;
-  NSData *d = [ NSURLConnection sendSynchronousRequest:req
-                                     returningResponse:&res
-                                                 error:&err ];
-    return d;
-
-//  
-//  NSLog(@"getting at path: %@", path);
-//  NSString * address = [NSString stringWithFormat:@"https://github.com/orta/tickets/raw/master%@", path];
-//  NSURL *url = [NSURL URLWithString:address];
-//  ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-//  [request startSynchronous];
-//  NSError *error = [request error];
-//  if (!error) {
-//    return [request responseData];;
-//  }
-//  return nil;
-}
-
-#pragma optional Custom Icon
-
-- (NSDictionary *)finderAttributesAtPath:(NSString *)path 
-                                   error:(NSError **)error {
-  if ([path isEqualToString:helloPath]) {
-    NSNumber* finderFlags = [NSNumber numberWithLong:kHasCustomIcon];
-    return [NSDictionary dictionaryWithObject:finderFlags
-                                       forKey:kGMUserFileSystemFinderFlagsKey];
+  NSURL *url = [NSURL URLWithString:address];
+  ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+  [request startSynchronous];
+  NSError *error = [request error];
+  if (!error) {
+    return [request responseData];;
   }
   return nil;
 }
@@ -98,4 +91,6 @@ static NSString *helloPath = @"/hello.txt";
   return;
 }
 
+
 @end
+
