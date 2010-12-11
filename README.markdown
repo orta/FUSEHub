@@ -9,4 +9,4 @@ I also want to be able to just mount the filesystem and create my own directorie
 
 It's getting there
 
-![screenshot!](http://github.com/orta/FUSEHub/raw/master/Resources/screen.PNG)
+![screenshot!](https://github.com/orta/FUSEHub/raw/master/Resources/screen.PNG)

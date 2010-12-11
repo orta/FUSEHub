@@ -3278,7 +3278,7 @@
 		<string>PrimaryDocumentVisibleCharacterRange</string>
 		<string>MessageBubblesVisible</string>
 		<string>PrimaryDocumentSelectedCharacterRange</string>
-		<real>313724464.35040998</real>
+		<real>313724757.011805</real>
 		<string>{0, 2030}</string>
 		<string>{1499, 0}</string>
 		<dict>
@@ -8157,7 +8157,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>313724464.352584</real>
+		<real>313724757.01388502</real>
 		<string>{0, 2030}</string>
 		<string>{1499, 0}</string>
 		<string>Xcode.IDEKit.EditorDocument.SourceCode</string>
