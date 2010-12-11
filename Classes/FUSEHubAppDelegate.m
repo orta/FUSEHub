@@ -33,13 +33,13 @@
   
   
   NSString* mountPath = @"/Volumes/github";
-  GHFileSystem* fileSystem = [[GHFileSystem alloc] init];
+  fileSystem = [[GHFileSystem alloc] init];
   fs_ = [[GMUserFileSystem alloc] initWithDelegate:fileSystem isThreadSafe:YES];
   NSMutableArray* options = [NSMutableArray array];
   [options addObject:@"rdonly"];
   [options addObject:@"volname=GHFileSystem"];
   [options addObject:[NSString stringWithFormat:@"volicon=%@", 
-                      [[NSBundle mainBundle] pathForResource:@"Fuse" ofType:@"icns"]]];
+                      [[NSBundle mainBundle] pathForResource:@"FS" ofType:@"icns"]]];
   [fs_ mountAtPath:mountPath withOptions:options];
 }
 
@@ -88,4 +88,7 @@
     [super dealloc];
 }
 
+- (IBAction)break:(id)sender {
+  [fileSystem print];
+}
 @end

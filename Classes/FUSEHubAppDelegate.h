@@ -10,13 +10,15 @@
 
 
 @class GMUserFileSystem;
+@class GHFileSystem;
 
 @interface FUSEHubAppDelegate : NSObject <NSApplicationDelegate> {
   NSWindow *window;
   GMUserFileSystem* fs_;
-
+  GHFileSystem* fileSystem;
 }
 
 @property (retain) IBOutlet NSWindow *window;
+- (IBAction)break:(id)sender;
 
 @end

@@ -11,7 +11,7 @@
 
 @implementation GHFile
 
-@synthesize name, children;
+@synthesize name, children, depth, user, repo;
 
 - (NSString *) UTF8String{
   return self.name;
@@ -19,7 +19,20 @@
 
 
 - (NSString *) description{
-  return self.name;
+   NSString * string = @"";
+  int i;
+   for (i = 0; i < self.depth; i++) {
+     string = [string stringByAppendingString:@"  "];
+   }
+  
+  string = [string stringByAppendingString:self.name];
+  
+  if([self.children count]){
+    for (i = 0; i < [self.children count]; i++) {
+      NSLog(@"%@", [[self.children objectAtIndex:i] description]);
+    }    
+  }
+  return string;
 }
 
 - (GHFile*) findChildWithName:(NSString *) string{
@@ -34,6 +47,9 @@
 }
 
 - (void) add:(GHFile *)node{
+  [node retain];
+  if(self.children == nil)
+    self.children = [NSMutableArray array];
   [self.children addObject:node];
 }
 
@@ -50,6 +66,8 @@
   }
   return stringArray;
 }
+
+
 
 
 @end

@@ -18,33 +18,33 @@
 
 - (id) init{
   self = [super init];
-  GHBlobParser* parser = [[GHBlobParser alloc] initWithGitHubURL:@"http://github.com/api/v2/yaml/blob/all/orta/tickets/master" andDelegate:self];
-  [parser retain];
-
+  
+  
   root = [[GHFile alloc] init];
   root.name = @"root";
+  root.depth = 0;
   root.children = [NSMutableArray array];
+
+  GHBlobParser* parser = [[GHBlobParser alloc] initWithGitHubUser:@"orta" Repository:@"FUSEHub" andDelegate:self];
+  [parser retain];
 
   NSString * tempDir = NSTemporaryDirectory();
   if (tempDir == nil)
     tempDir = @"/tmp";
   
   NSString * template = [tempDir stringByAppendingPathComponent: @"GSFS.XXXXXX"];
-  NSLog(@"Template: %@", template);
 
   const char * fsTemplate = [template fileSystemRepresentation];
   NSMutableData * bufferData = [NSMutableData dataWithBytes: fsTemplate
                                                      length: strlen(fsTemplate)+1];
   char * buffer = [bufferData mutableBytes];
   char * result = mkdtemp(buffer);
+
   temporaryDirectory = [[NSFileManager defaultManager]
                                    stringWithFileSystemRepresentation: buffer
                                    length: strlen(buffer)];
-  
-//  [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
-//  [[ASIDownloadCache sharedCache] setCacheMode:ASIOnlyLoadIfNotCachedCachePolicy];
-//
-  
+  NSLog(@"temp: %@", temporaryDirectory);
+
   return self;
 }
 
@@ -62,14 +62,29 @@
 
 - (NSArray *)contentsOfDirectoryAtPath:(NSString *)path error:(NSError **)error {
   NSLog(@"contents of dir: %@", path);
-  return [root fileArray];
+  return [[self findNodeAtPath:path] fileArray];
 }
 
-- (NSData *)contentsAtPath:(NSString *)path {
-  NSLog(@"contents at path: %@", path);
+- (NSDictionary *)attributesOfItemAtPath:(NSString *)path userData:(id)userData error:(NSError **)error {
+  NSLog(@"attributes at path: %@", path);
+  GHFile * node =[self findNodeAtPath:path];
+  if( node.depth < 3){
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+            [NSNumber numberWithInt:0700], NSFilePosixPermissions,
+            [NSNumber numberWithInt:geteuid()], NSFileOwnerAccountID,
+            [NSNumber numberWithInt:getegid()], NSFileGroupOwnerAccountID,
+            [NSDate date], NSFileCreationDate,
+            [NSDate date], NSFileModificationDate,
+            NSFileTypeDirectory, NSFileType,  nil];
+  }else{
+    
+    return  nil;
+  }
+}
 
-  NSArray * components = [path pathComponents];
-  
+
+
+- (NSData *)contentsAtPath:(NSString *)path {
   
   if ([path rangeOfString:@"_"].location != NSNotFound) {
     return nil;
@@ -81,34 +96,71 @@
   }
   
   NSLog(@"getting at path: %@", path);
-  NSString * address = [NSString stringWithFormat:@"https://github.com/orta/tickets/raw/master%@", path];
+  GHFile * node =[self findNodeAtPath:path];
+
+  if([node.children count]){
+    //   is a folder
+    [[NSFileManager defaultManager] createDirectoryAtPath: [temporaryDirectory stringByAppendingString: path] attributes: nil];
+    return nil;
+  }
+  
+  NSString * address = [NSString stringWithFormat:@"https://github.com/%@/%@/raw/master/%@", node.user, node.repo, node.name];
   NSURL *url = [NSURL URLWithString:address];
-  ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+  NSLog(@"fetching %@", address);
+
+  __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
   [request setCompletionBlock:^{
    
     // Use when fetching binary data
     NSData *responseData = [request responseData];
-    [responseData  writeToFile:[temporaryDirectory stringByAppendingString:path] atomically:YES];
+    NSString * newPath = [temporaryDirectory stringByAppendingString: path];
+    NSLog(@"new path %@", newPath);
+    
+    [responseData  writeToFile:newPath atomically:YES];
   }];
-  [request startAsynchronous];
+  [request startSynchronous];
   
   return nil;
 }
 
-
-- (void)addItemToStore:(NSString*) item{
+- (GHFile *)findNodeAtPath:(NSString *) path{
+  if([path isEqualToString:@"/"])
+    return root;
   
-  if ([item rangeOfString:@"/"].location == NSNotFound) {
-    NSLog(@"hello %@", item);
-    
-    GHFile* node = [[GHFile alloc] init];
-    node.name = item;
-    [root add:node];
-  }
-  
-  return;
+  path = [path substringFromIndex:1];
+  NSArray * components = [path pathComponents];
+  NSUInteger i, count = [components count];
+  GHFile* node = root;
+  for (i = 0; i < count; i++) {
+    NSString * component = [components objectAtIndex:i];
+    node = [node findChildWithName:component];
+  }  
+  return node;
 }
 
+- (void)addItemToStore:(NSString*) path withUser:(NSString*) user andRepo:(NSString*)repo{
+  NSArray * components = [path pathComponents];
+  NSUInteger i, count = [components count];
+  GHFile* node = root;
+  for (i = 0; i < count; i++) {
+    NSString * component = [components objectAtIndex:i];
+    GHFile* parent = node;
+    node = [node findChildWithName:component];
+    if(node == nil){
+      GHFile* newNode = [[[GHFile alloc] init] retain];
+      newNode.name = component;
+      newNode.depth = parent.depth + 1;
+      newNode.user = user;
+      newNode.repo = repo;
+      [parent add:newNode];
+      [newNode release];
+    }      
+  }  
+}
+
+- (void) print{
+  NSLog(@"%@", [root description]);
+}
 
 @end
 

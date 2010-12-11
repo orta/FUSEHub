@@ -16,6 +16,8 @@
   NSString * temporaryDirectory;
 }
 
-- (void)addItemToStore:(NSString*) item;
+- (void)addItemToStore:(NSString*) path withUser:(NSString*) user andRepo:(NSString*)repo;
+- (GHFile *)findNodeAtPath:(NSString *) path;
+- (void) print;
 
 @end

@@ -10,7 +10,7 @@
 
 @protocol GHBlob <NSObject>
 @required
- - (void)addItemToStore:(NSString*) item;
+- (void)addItemToStore:(NSString*) path withUser:(NSString*) user andRepo:(NSString*)repo;
 @end
 
 
@@ -20,7 +20,7 @@
   NSString* address;
 }
 
-- (id)initWithGitHubURL:(NSString*) blobaddress andDelegate:(id <GHBlob>) newDelegate;
+- (id)initWithGitHubUser:(NSString*) user Repository:(NSString*)repo andDelegate:(id <GHBlob>) newDelegate;
 
 @property (retain) NSString* address;
 
