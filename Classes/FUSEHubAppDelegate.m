@@ -37,7 +37,7 @@
   fs_ = [[GMUserFileSystem alloc] initWithDelegate:fileSystem isThreadSafe:YES];
   NSMutableArray* options = [NSMutableArray array];
   [options addObject:@"rdonly"];
-  [options addObject:@"volname=GHFileSystem"];
+  [options addObject:@"volname=GitHub"];
   [options addObject:[NSString stringWithFormat:@"volicon=%@", 
                       [[NSBundle mainBundle] pathForResource:@"FS" ofType:@"icns"]]];
   [fs_ mountAtPath:mountPath withOptions:options];
@@ -77,7 +77,7 @@
     NSArray *keyvalue = [field componentsSeparatedByString:@"="];
     NSString *key = [keyvalue objectAtIndex:0] ;
     NSString *value = [keyvalue objectAtIndex:1];
-    NSLog(@"key = '%@' - value = '%@'", key, value); 
+    DBLog(@"key = '%@' - value = '%@'", key, value); 
   }
 }
 

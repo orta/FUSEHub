@@ -10,6 +10,7 @@
 		605F3B7A12AD7AE900D0103C /* GHFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 605F3B7912AD7AE900D0103C /* GHFile.m */; };
 		6077C93D12AD661E00E32F07 /* GHBlobParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6077C93C12AD661E00E32F07 /* GHBlobParser.m */; };
 		607F343512B30CDB007D7F18 /* FS.icns in Resources */ = {isa = PBXBuildFile; fileRef = 607F343412B30CDB007D7F18 /* FS.icns */; };
+		607F343B12B39AAF007D7F18 /* DebugLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F343A12B39AAF007D7F18 /* DebugLog.m */; };
 		608FEDDA12B19F01009D0C76 /* NSError+POSIX.m in Sources */ = {isa = PBXBuildFile; fileRef = 608FEDD912B19F01009D0C76 /* NSError+POSIX.m */; };
 		6091D3E412AD5612005722BD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6091D3E312AD5612005722BD /* Cocoa.framework */; };
 		6091D3E912AD5612005722BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6091D3E712AD5612005722BD /* InfoPlist.strings */; };
@@ -50,6 +51,8 @@
 		6077C93B12AD661E00E32F07 /* GHBlobParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHBlobParser.h; sourceTree = "<group>"; };
 		6077C93C12AD661E00E32F07 /* GHBlobParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHBlobParser.m; sourceTree = "<group>"; };
 		607F343412B30CDB007D7F18 /* FS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = FS.icns; path = Resources/FS.icns; sourceTree = "<group>"; };
+		607F343912B39AAF007D7F18 /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLog.h; sourceTree = "<group>"; };
+		607F343A12B39AAF007D7F18 /* DebugLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugLog.m; sourceTree = "<group>"; };
 		608FEDD812B19F01009D0C76 /* NSError+POSIX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+POSIX.h"; sourceTree = "<group>"; };
 		608FEDD912B19F01009D0C76 /* NSError+POSIX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+POSIX.m"; sourceTree = "<group>"; };
 		6091D3E012AD5612005722BD /* FUSEHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FUSEHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +139,8 @@
 		6091D3D912AD5612005722BD /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				607F343912B39AAF007D7F18 /* DebugLog.h */,
+				607F343A12B39AAF007D7F18 /* DebugLog.m */,
 				608FEDD812B19F01009D0C76 /* NSError+POSIX.h */,
 				608FEDD912B19F01009D0C76 /* NSError+POSIX.m */,
 				6091D3E612AD5612005722BD /* FUSEHub_Prefix.pch */,
@@ -280,6 +285,7 @@
 				60A500E812AEA2A900893CDF /* ASIInputStream.m in Sources */,
 				60A500E912AEA2A900893CDF /* ASINetworkQueue.m in Sources */,
 				608FEDDA12B19F01009D0C76 /* NSError+POSIX.m in Sources */,
+				607F343B12B39AAF007D7F18 /* DebugLog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

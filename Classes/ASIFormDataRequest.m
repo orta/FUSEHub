@@ -206,7 +206,7 @@
 	[super buildPostBody];
 	
 #if DEBUG_FORM_DATA_REQUEST
-	NSLog(@"%@",[self debugBodyString]);
+	DBLog(@"%@",[self debugBodyString]);
 	[self setDebugBodyString:nil];
 #endif
 }

@@ -38,12 +38,12 @@
   NSMutableData * bufferData = [NSMutableData dataWithBytes: fsTemplate
                                                      length: strlen(fsTemplate)+1];
   char * buffer = [bufferData mutableBytes];
-  char * result = mkdtemp(buffer);
+mkdtemp(buffer);
 
   temporaryDirectory = [[NSFileManager defaultManager]
                                    stringWithFileSystemRepresentation: buffer
                                    length: strlen(buffer)];
-  NSLog(@"temp: %@", temporaryDirectory);
+  DBLog(@"temp: %@", temporaryDirectory);
 
   return self;
 }
@@ -61,12 +61,15 @@
 }
 
 - (NSArray *)contentsOfDirectoryAtPath:(NSString *)path error:(NSError **)error {
-  NSLog(@"contents of dir: %@", path);
+  DBLog(@"contents of dir: %@", path);
   return [[self findNodeAtPath:path] fileArray];
 }
 
 - (NSDictionary *)attributesOfItemAtPath:(NSString *)path userData:(id)userData error:(NSError **)error {
-  NSLog(@"attributes at path: %@", path);
+  DBLog(@"attributes at path: %@", path);
+  if([path isEqualToString:@"/orta/FUSEHub/Classes"]){
+    DBLog(@"attributes at path: %@", path);
+  }
   GHFile * node =[self findNodeAtPath:path];
   if( node.depth < 3){
     return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -78,7 +81,25 @@
             NSFileTypeDirectory, NSFileType,  nil];
   }else{
     
-    return  nil;
+    if([[node children] count]){
+      return [NSDictionary dictionaryWithObjectsAndKeys:
+              [NSNumber numberWithInt:0700], NSFilePosixPermissions,
+              [NSNumber numberWithInt:geteuid()], NSFileOwnerAccountID,
+              [NSNumber numberWithInt:getegid()], NSFileGroupOwnerAccountID,
+              [NSDate date], NSFileCreationDate,
+              [NSDate date], NSFileModificationDate,
+              NSFileTypeDirectory, NSFileType,  nil];
+
+    }
+    
+    NSString * newPath = [NSString stringWithFormat:@"%@/%@/%@/%@", temporaryDirectory ,node.user, node.repo, node.path];
+    NSFileManager * fm = [NSFileManager defaultManager];
+    BOOL isDir = false;
+    if([fm fileExistsAtPath:newPath isDirectory:&isDir]){
+      DBLog(@"attributes at path: %@", newPath);      
+      return [fm  fileAttributesAtPath:newPath traverseLink:YES ];      
+    }
+
   }
 }
 
@@ -94,31 +115,6 @@
   if(fileExists){
     return [NSData dataWithContentsOfFile:[temporaryDirectory stringByAppendingString:path]];
   }
-  
-  NSLog(@"getting at path: %@", path);
-  GHFile * node =[self findNodeAtPath:path];
-
-  if([node.children count]){
-    //   is a folder
-    [[NSFileManager defaultManager] createDirectoryAtPath: [temporaryDirectory stringByAppendingString: path] attributes: nil];
-    return nil;
-  }
-  
-  NSString * address = [NSString stringWithFormat:@"https://github.com/%@/%@/raw/master/%@", node.user, node.repo, node.name];
-  NSURL *url = [NSURL URLWithString:address];
-  NSLog(@"fetching %@", address);
-
-  __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-  [request setCompletionBlock:^{
-   
-    // Use when fetching binary data
-    NSData *responseData = [request responseData];
-    NSString * newPath = [temporaryDirectory stringByAppendingString: path];
-    NSLog(@"new path %@", newPath);
-    
-    [responseData  writeToFile:newPath atomically:YES];
-  }];
-  [request startSynchronous];
   
   return nil;
 }
@@ -139,7 +135,10 @@
 }
 
 - (void)addItemToStore:(NSString*) path withUser:(NSString*) user andRepo:(NSString*)repo{
-  NSArray * components = [path pathComponents];
+
+  NSMutableArray * components = [[path pathComponents] mutableCopy];
+  [components insertObject:repo atIndex:0];
+  [components insertObject:user atIndex:0];
   NSUInteger i, count = [components count];
   GHFile* node = root;
   for (i = 0; i < count; i++) {
@@ -147,19 +146,39 @@
     GHFile* parent = node;
     node = [node findChildWithName:component];
     if(node == nil){
+      
+      // this is not the end leaf of the tree
+      // make the folder for it
+      if(i != count){
+        NSUInteger j;
+        NSString * dir = temporaryDirectory;
+        for (j = 0; j < i; j++) {
+          dir = [NSString stringWithFormat:@"%@/%@",dir, [components objectAtIndex:j]];
+        }
+        if([[NSFileManager defaultManager] fileExistsAtPath:dir] == NO){
+          NSError * error = nil;
+          [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:&error];
+        }
+      }
+      
       GHFile* newNode = [[[GHFile alloc] init] retain];
       newNode.name = component;
       newNode.depth = parent.depth + 1;
       newNode.user = user;
       newNode.repo = repo;
+      newNode.path = path;
       [parent add:newNode];
+      [newNode writeDataWithTempDirectory:temporaryDirectory];
       [newNode release];
+      
+//      TODO: create folders
+
     }      
   }  
 }
 
 - (void) print{
-  NSLog(@"%@", [root description]);
+  DBLog(@"%@", [root description]);
 }
 
 @end

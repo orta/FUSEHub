@@ -34,14 +34,14 @@
           NSString * line = [lines objectAtIndex:i];
           NSString * item = [[line componentsSeparatedByString:@":"] objectAtIndex:0];
           item = [item stringByReplacingOccurrencesOfString:@" " withString:@""];
-          NSString * formatted = [NSString stringWithFormat: @"%@/%@/%@", user, repo, item];
-          [delegate addItemToStore:formatted withUser:user andRepo:repo];
+//          NSString * formatted = [NSString stringWithFormat: @"%@/%@/%@", user, repo, item];
+          [delegate addItemToStore:item withUser:user andRepo:repo];
         }
 
       }];
       [request setFailedBlock:^{
         NSError *error = [request error];
-        NSLog(@"ERROR: %@", [error localizedDescription]);
+        DBLog(@"ERROR: %@", [error localizedDescription]);
       }];
 
       [request startAsynchronous];
