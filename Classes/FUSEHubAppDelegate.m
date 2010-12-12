@@ -78,11 +78,18 @@
     NSString *key = [keyvalue objectAtIndex:0] ;
     NSString *value = [keyvalue objectAtIndex:1];
     DBLog(@"key = '%@' - value = '%@'", key, value); 
-    if([key isEqualToString:@"user"])
-      username = value;
-    if([key isEqualToString:@"repo"])
-      [fileSystem getUser:username andRepo:value];
     
+    if([key isEqualToString:@"user"]){
+      username = value;
+    }
+    
+    if([key isEqualToString:@"repo"]){
+      [fileSystem getUser:username andRepo:value];
+    }
+    
+    if([key isEqualToString:@"mount"]){
+      [fileSystem getUser:username];
+    }
   }
 }
 

@@ -18,6 +18,8 @@
 
 - (void)addItemToStore:(NSString*) path withUser:(NSString*) user andRepo:(NSString*)repo;
 - (GHFile *)findNodeAtPath:(NSString *) path;
+
+- (void) getUser:(NSString*)user;
 - (void) getUser:(NSString*)user andRepo:(NSString*)repo;
 
 - (void) print;

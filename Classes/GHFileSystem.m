@@ -46,8 +46,14 @@
   return self;
 }
 
+- (void) getUser:(NSString*)user{
+  DBLog(@"getuser %@", user);
+  GHUserRepoParser * repoparser = [[GHUserRepoParser alloc] initWithUser:user andDelegate:self];
+  [repoparser retain];
+}
+
 - (void) getUser:(NSString*)user andRepo:(NSString*)repo{
-  
+    DBLog(@"getuserrepo %@ - %@", user, repo);
   GHBlobParser* parser = [[GHBlobParser alloc] initWithGitHubUser:user Repository:repo andDelegate:self];
   [parser retain];
   
@@ -74,9 +80,10 @@
   
   GHFile * node = [self findNodeAtPath:path];
   if(node.depth == 2){
-    DBLog(@"node depth = 2 ( %@ - %@)", node.parent.name, node.name);
-    GHBlobParser* parser = [[GHBlobParser alloc] initWithGitHubUser:node.parent.name Repository:node.name andDelegate:self];
-    [parser retain];
+    if([node.children count] < 1){      
+      GHBlobParser* parser = [[GHBlobParser alloc] initWithGitHubUser:node.parent.name Repository:node.name andDelegate:self];
+      [parser retain];
+    }
   }
   return [node fileArray];
 }

@@ -16,7 +16,7 @@ jQuery(document).ready(function() {
   
   if( $("#download_button").length ){
     // in a repo page, show add a Mount Repo Button
-    var owner = $(".title-actions-bar h1 a")[1].text
+    var owner = $(".title-actions-bar h1 a")[0].text
     var repo_name = $(".title-actions-bar h1 a")[1].text
     
     $('<a href="fusehub:user=' + owner + '&repo=' + repo_name + '" class="download-source" id="mount_button" title="Download source, tagged packages and binaries."><span class="icon"></span>Mount</a>').insertAfter("#download_button")
