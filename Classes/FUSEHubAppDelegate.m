@@ -68,14 +68,21 @@
 
 - (void) gotIncomingURL:(NSAppleEventDescriptor*) event withReplyEvent:(NSAppleEventDescriptor *) reply{
   NSString *incomingURL = [[event descriptorForKeyword: '----'] stringValue];
+  incomingURL = [incomingURL stringByReplacingOccurrencesOfString:@"fusehub:" withString:@""];
   NSArray *fields = [incomingURL componentsSeparatedByString:@"&"];
   NSEnumerator *e = [fields objectEnumerator];
   NSString *field = @"";
+  NSString *username = @"";
   while ((field = [e nextObject])) {
     NSArray *keyvalue = [field componentsSeparatedByString:@"="];
     NSString *key = [keyvalue objectAtIndex:0] ;
     NSString *value = [keyvalue objectAtIndex:1];
     DBLog(@"key = '%@' - value = '%@'", key, value); 
+    if([key isEqualToString:@"user"])
+      username = value;
+    if([key isEqualToString:@"repo"])
+      [fileSystem getUser:username andRepo:value];
+    
   }
 }
 

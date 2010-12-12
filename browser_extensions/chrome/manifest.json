@@ -1,0 +1,14 @@
+{
+  "name": "FUSEHub",
+  "version": "1.0",
+  "description": "Mount GitHub Repos as filesystems.",
+  "permissions": [
+    "contextMenus"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*"],
+      "js" : ["jquery_1.4.2.js", "fusehub.js"],
+      "css": ["fusehub.css"]
+    }]
+}

@@ -1,0 +1,11 @@
+/* repo page */
+.site .metabox #repository_desc_wrapper {
+  width: 640px ;
+}
+
+.metabox #mount_button,.metabox #mount_button:visited{border:1px solid #d4d4d4;color:#666;display:block;float:right;font-size:15px;font-weight:bold;line-height:15px;margin-bottom:10px;margin-right:10px; padding:10px 15px 10px 16px;text-shadow:1px 1px 0 rgba(255,255,255,0.7);border-radius:5px;background:#ececec;background:-webkit-gradient(linear,center bottom,center top,from(#ececec),to(#f4f4f4));background:-moz-linear-gradient(90deg,#ececec,#f4f4f4);-moz-border-radius:5px;-moz-box-shadow:0 1px 0 #ececec;-webkit-box-shadow:0 1px 0 #ececec;filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f4f4f4',endColorstr='#ececec');}
+.has-downloads-no-desc #mount_button,.has-downloads-no-desc #mount_button:visited{margin-bottom:0;}
+.metabox #mount_button .icon{background-image:url(/images/icons/download.png);background-position:0 52%;background-repeat:no-repeat;line-height:15px;margin:0 4px 0 0;padding:0 0 0 20px;}
+.metabox #mount_button:hover .icon,.metabox #mount_button:active .icon{background-position:-21px 52%;}
+.metabox #mount_button:hover{border:1px solid #2e63a5;color:#fff;text-decoration:none;text-shadow:0 -1px 0 #2e63a5;background:#3570b8;background:-webkit-gradient(linear,center bottom,center top,from(#3570b8),to(#5e9ae2));background:-moz-linear-gradient(90deg,#3570b8,#5e9ae2);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#3570b8',endColorstr='#5e9ae2');}
+.metabox #mount_button:active{border:1px solid #2e63a5;color:#fff;text-decoration:none;text-shadow:0 -1px 0 #2e63a5;background:-moz-linear-gradient(90deg,#558bcb,#336fb7);}
