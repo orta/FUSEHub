@@ -90,7 +90,7 @@
 		60A500E012AEA2A900893CDF /* ASINetworkQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASINetworkQueue.h; sourceTree = "<group>"; };
 		60A500E112AEA2A900893CDF /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
 		60A500E212AEA2A900893CDF /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
-		60A500EA12AEA38C00893CDF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		60A500EA12AEA38C00893CDF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Xcode4/SDKs/MacOSX10.6.sdk/usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		60A500EC12AEA39700893CDF /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		60A500EE12AEA39D00893CDF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -114,7 +114,6 @@
 		6091D3D112AD5611005722BD = {
 			isa = PBXGroup;
 			children = (
-				60A500EA12AEA38C00893CDF /* libz.dylib */,
 				6091D3D812AD5612005722BD /* Classes */,
 				6091D3D912AD5612005722BD /* Other Sources */,
 				6091D3DA12AD5612005722BD /* Resources */,
@@ -170,6 +169,7 @@
 		6091D3DB12AD5612005722BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				60A500EA12AEA38C00893CDF /* libz.dylib */,
 				60A500EE12AEA39D00893CDF /* SystemConfiguration.framework */,
 				60A500EC12AEA39700893CDF /* CoreServices.framework */,
 				6091D40112AD569E005722BD /* MacFUSE.framework */,

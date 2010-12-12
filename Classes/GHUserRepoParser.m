@@ -13,6 +13,7 @@
   // $ curl http://github.com/api/v2/xml/repos/show/schacon
 
   - (id)initWithUser:(NSString*) user andDelegate:(id<GHBlob>)newDelegate {
+
     if ((self = [super init])) {
       delegate = newDelegate;
       
@@ -26,7 +27,6 @@
         NSXMLDocument * xml = [[NSXMLDocument alloc] initWithXMLString:responseString options:nil error:&error];
         if(error == nil){
           NSArray *children = [[xml rootElement] children];
-          DBLog(@"chilkdren count %i", [children count]);
           int i, count = [children count];
           for (i=0; i < count; i++) {
             NSXMLElement *membersElement = [children objectAtIndex:i];

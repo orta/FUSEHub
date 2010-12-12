@@ -11,12 +11,14 @@
 
 @interface GHFile : NSObject {
   NSMutableArray *children;
+  GHFile *parent;
   NSString *name, *user, *repo, *path;
   int depth;
 }
 @property (retain) NSMutableArray *children;
 @property (retain) NSString *name, *user, *repo, *path;
 @property () int depth;
+@property (retain) GHFile *parent;
 
 - (GHFile*) findChildWithName:(NSString *) string;
 - (void) add:(GHFile *)node;

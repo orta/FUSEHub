@@ -12,7 +12,7 @@
 
 @implementation GHFile
 
-@synthesize name, children, depth, user, repo, path;
+@synthesize name, children, depth, user, repo, path, parent;
 
 - (NSString *) UTF8String{
   return self.name;

@@ -26,12 +26,7 @@
   root.depth = 0;
   root.children = [NSMutableArray array];
 
-  GHBlobParser* parser = [[GHBlobParser alloc] initWithGitHubUser:@"orta" Repository:@"FUSEHub" andDelegate:self];
-  [parser retain];
-
-  GHUserRepoParser * repoparser = [[GHUserRepoParser alloc] initWithUser:@"orta" andDelegate:self];
-  [repoparser retain];
-
+  [self getUser:@"orta" andRepo:@"FUSEHub"];
   
   NSString * tempDir = NSTemporaryDirectory();
   if (tempDir == nil)
@@ -43,7 +38,7 @@
   NSMutableData * bufferData = [NSMutableData dataWithBytes: fsTemplate
                                                      length: strlen(fsTemplate)+1];
   char * buffer = [bufferData mutableBytes];
-mkdtemp(buffer);
+  mkdtemp(buffer);
 
   temporaryDirectory = [[NSFileManager defaultManager]
                                    stringWithFileSystemRepresentation: buffer
@@ -51,12 +46,19 @@ mkdtemp(buffer);
   return self;
 }
 
+- (void) getUser:(NSString*)user andRepo:(NSString*)repo{
+  
+  GHBlobParser* parser = [[GHBlobParser alloc] initWithGitHubUser:user Repository:repo andDelegate:self];
+  [parser retain];
+  
+  GHUserRepoParser * repoparser = [[GHUserRepoParser alloc] initWithUser:user andDelegate:self];
+  [repoparser retain];
+}
+
 #pragma delegate methods
 
 - (BOOL)fileExistsAtPath:(NSString *)path isDirectory:(BOOL *)isDirectory {
   
-  DBLog(@"fexists %@", path);
-
   if (!path || !isDirectory)
     return NO;
   // Handle "._" and "Icon\r" that we don't deal with.
@@ -69,7 +71,14 @@ mkdtemp(buffer);
 }
 
 - (NSArray *)contentsOfDirectoryAtPath:(NSString *)path error:(NSError **)error {
-  return [[self findNodeAtPath:path] fileArray];
+  
+  GHFile * node = [self findNodeAtPath:path];
+  if(node.depth == 2){
+    DBLog(@"node depth = 2 ( %@ - %@)", node.parent.name, node.name);
+    GHBlobParser* parser = [[GHBlobParser alloc] initWithGitHubUser:node.parent.name Repository:node.name andDelegate:self];
+    [parser retain];
+  }
+  return [node fileArray];
 }
 
 - (NSDictionary *)attributesOfItemAtPath:(NSString *)path userData:(id)userData error:(NSError **)error {
@@ -101,7 +110,6 @@ mkdtemp(buffer);
     NSFileManager * fm = [NSFileManager defaultManager];
     BOOL isDir = false;
     if([fm fileExistsAtPath:newPath isDirectory:&isDir]){
-      DBLog(@"attributes at path: %@", newPath);      
       return [fm  fileAttributesAtPath:newPath traverseLink:YES ];      
     }
   }
@@ -157,14 +165,13 @@ mkdtemp(buffer);
 - (void)addRepo:(NSString*) repo toUser:(NSString*)user{
 
   GHFile * userNode = [root findChildWithName:user];
-  DBLog(@" addings %@ ", userNode);
-
   GHFile* newNode = [[[GHFile alloc] init] retain];
   newNode.name = repo;
   newNode.depth = userNode.depth + 1;
   newNode.user = user;
   newNode.repo = repo;
-  newNode.path = "";
+  newNode.parent = userNode;
+  newNode.path = @"";
   [userNode add:newNode];
   [newNode release];
 }
@@ -202,6 +209,7 @@ mkdtemp(buffer);
       newNode.user = user;
       newNode.repo = repo;
       newNode.path = path;
+      newNode.parent = parent;
       [parent add:newNode];
       [newNode writeDataWithTempDirectory:temporaryDirectory];
       [newNode release];

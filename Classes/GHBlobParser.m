@@ -14,8 +14,7 @@
 @synthesize address;
 
 - (id)initWithGitHubUser:(NSString*) user Repository:(NSString*)repo andDelegate:(id <GHBlob>) newDelegate {
-  NSString * blobaddress = [NSString stringWithFormat:@"http://github.com/api/v2/yaml/blob/all/%@/%@/master", user, repo];
-    
+    NSString * blobaddress = [NSString stringWithFormat:@"http://github.com/api/v2/yaml/blob/all/%@/%@/master", user, repo];
     if ((self = [super init])) {
       self.address = blobaddress;
       delegate = newDelegate;
@@ -34,7 +33,6 @@
           NSString * line = [lines objectAtIndex:i];
           NSString * item = [[line componentsSeparatedByString:@":"] objectAtIndex:0];
           item = [item stringByReplacingOccurrencesOfString:@" " withString:@""];
-//          NSString * formatted = [NSString stringWithFormat: @"%@/%@/%@", user, repo, item];
           [delegate addItemToStore:item withUser:user andRepo:repo];
         }
 
