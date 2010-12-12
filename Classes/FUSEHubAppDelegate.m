@@ -30,18 +30,16 @@
                                                    forEventClass:kInternetEventClass
                                                       andEventID:kAEGetURL];  
 
-  
-  
   NSString* mountPath = @"/Volumes/github";
   fileSystem = [[GHFileSystem alloc] init];
   fs_ = [[GMUserFileSystem alloc] initWithDelegate:fileSystem isThreadSafe:YES];
   NSMutableArray* options = [NSMutableArray array];
-  [options addObject:@"rdonly"];
   [options addObject:@"volname=GitHub"];
   [options addObject:[NSString stringWithFormat:@"volicon=%@", 
                       [[NSBundle mainBundle] pathForResource:@"FS" ofType:@"icns"]]];
   [fs_ mountAtPath:mountPath withOptions:options];
 }
+
 
 - (void)didMount:(NSNotification *)notification {
   NSDictionary* userInfo = [notification userInfo];

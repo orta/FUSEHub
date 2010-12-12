@@ -11,6 +11,7 @@
 @protocol GHBlob <NSObject>
 @required
 - (void)addItemToStore:(NSString*) path withUser:(NSString*) user andRepo:(NSString*)repo;
+- (void)addRepo:(NSString*) repo toUser:(NSString*)user;
 @end
 
 
