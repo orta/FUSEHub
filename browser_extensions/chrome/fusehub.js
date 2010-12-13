@@ -1,6 +1,6 @@
 // 
 //  fusehub.js
-//  chrome
+//  chrome extension for fusehub
 //  
 //  Created by orta on 2010-12-12.
 //  Copyright 2010 ortatherox. All rights reserved.
@@ -10,7 +10,9 @@
 jQuery(document).ready(function() {
   if( $("body.page-profile").length ){
     // in a profile page, show a "browser users repos" button
-    var owner = $(".pagehead h1").text().replace(/^\s*|\s*$/g,'').toLowerCase()    
+    // whoah! get the name by grabbing the title, remove whitespace, lowercase it, remove anything that could be in brackets "ortatherox (Orta Therox)"
+    var owner = $(".pagehead h1").text().replace(/^\s*|\s*$/g,'').toLowerCase().split(" ", 1)[0].replace(/[\n\r\t]/g, "");;
+       
     $(".actions").append('<li><a href="fusehub:user=' + owner + '&action=browse" class="minibutton btn-msg"><span>Mount User in FUSEHub</span></a></li>')
   }
   

@@ -87,7 +87,7 @@
       [fileSystem getUser:username andRepo:value];
     }
     
-    if([key isEqualToString:@"mount"]){
+    if([value isEqualToString:@"browse"]){
       [fileSystem getUser:username];
     }
   }

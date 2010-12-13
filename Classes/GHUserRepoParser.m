@@ -14,6 +14,7 @@
 
   - (id)initWithUser:(NSString*) user andDelegate:(id<GHBlob>)newDelegate {
 
+    
     if ((self = [super init])) {
       delegate = newDelegate;
       
@@ -21,18 +22,24 @@
       __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
       [request setDelegate:self];
       [request setCompletionBlock:^{
+        DBLog(@"got file");
           // Use when fetching text data
         NSString *responseString = [request responseString];
         NSError * error = nil;
         NSXMLDocument * xml = [[NSXMLDocument alloc] initWithXMLString:responseString options:nil error:&error];
         if(error == nil){
+
           NSArray *children = [[xml rootElement] children];
           int i, count = [children count];
+          DBLog(@"got file");
+
           for (i=0; i < count; i++) {
             NSXMLElement *membersElement = [children objectAtIndex:i];
             NSString* repo = [[[membersElement elementsForName:@"name"] objectAtIndex:0] stringValue] ;
             [delegate addRepo: repo toUser:user];
           }
+        }else{
+          DBLog(@"XML Error %@", [error localizedDescription] );
         }
       }];
       [request setFailedBlock:^{

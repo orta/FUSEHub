@@ -47,14 +47,14 @@
 }
 
 - (void) getUser:(NSString*)user{
-  DBLog(@"getuser %@", user);
   GHUserRepoParser * repoparser = [[GHUserRepoParser alloc] initWithUser:user andDelegate:self];
+  [self addUser:user];
   [repoparser retain];
 }
 
 - (void) getUser:(NSString*)user andRepo:(NSString*)repo{
-    DBLog(@"getuserrepo %@ - %@", user, repo);
   GHBlobParser* parser = [[GHBlobParser alloc] initWithGitHubUser:user Repository:repo andDelegate:self];
+  [self addUser:user];
   [parser retain];
   
   GHUserRepoParser * repoparser = [[GHUserRepoParser alloc] initWithUser:user andDelegate:self];
@@ -169,6 +169,18 @@
   return node;
 }
 
+-(void)addUser:(NSString*) user{
+  GHFile* newNode = [[[GHFile alloc] init] retain];
+  newNode.name = user;
+  newNode.depth = root.depth + 1;
+  newNode.user = user;
+  newNode.parent = root;
+  newNode.path = user;
+  [root add:newNode];
+  [newNode release];
+
+}
+
 - (void)addRepo:(NSString*) repo toUser:(NSString*)user{
 
   GHFile * userNode = [root findChildWithName:user];
@@ -184,7 +196,7 @@
 }
 
 - (void)addItemToStore:(NSString*) path withUser:(NSString*) user andRepo:(NSString*)repo{
-
+  
   NSMutableArray * components = [[path pathComponents] mutableCopy];
   [components insertObject:repo atIndex:0];
   [components insertObject:user atIndex:0];
