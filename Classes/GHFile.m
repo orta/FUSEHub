@@ -82,6 +82,9 @@
     //    the place to put it contains the name of the file
     
     [responseData  writeToFile:newPath atomically:YES];
+    NSString * fullPath = [NSString stringWithFormat:@"/Volumes/github/%@/%@/%@", self.user, self.repo, self.path];
+    [[NSWorkspace sharedWorkspace] noteFileSystemChanged:fullPath];
+
   }];
   [request start];
 }

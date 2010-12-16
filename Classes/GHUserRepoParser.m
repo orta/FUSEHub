@@ -31,7 +31,6 @@
 
           NSArray *children = [[xml rootElement] children];
           int i, count = [children count];
-          DBLog(@"got file");
 
           for (i=0; i < count; i++) {
             NSXMLElement *membersElement = [children objectAtIndex:i];

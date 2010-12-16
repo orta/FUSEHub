@@ -87,6 +87,9 @@
       [parser retain];
     }
   }
+  if([[node fileArray] count] ==0 ){
+    return [NSArray arrayWithObject:@"Loading..."];
+  }
   return [node fileArray];
 }
 
@@ -233,10 +236,9 @@
       newNode.parent = parent;
       [parent add:newNode];
       [newNode writeDataWithTempDirectory:temporaryDirectory];
-      [newNode release];
-      
-//      TODO: create folders
-
+      [newNode release];        
+      NSString * fullPath = [NSString stringWithFormat:@"/Volumes/github/%@/%@/%@", user, repo, path];
+      [[NSWorkspace sharedWorkspace] noteFileSystemChanged:fullPath];
     }      
   }  
 }
