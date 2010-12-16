@@ -16,9 +16,13 @@
   NSWindow *window;
   GMUserFileSystem* fs_;
   GHFileSystem* fileSystem;
+  NSString *openedURL;
+  NSString *mountPath;
 }
 
 @property (retain) IBOutlet NSWindow *window;
+
 - (IBAction)break:(id)sender;
+- (void) parseStoredURL;
 
 @end

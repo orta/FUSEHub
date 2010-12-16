@@ -16,6 +16,7 @@
 #import "GHUserRepoParser.h"
 
 @implementation GHFileSystem
+@synthesize mounted;
 
 - (id) init{
   self = [super init];
@@ -26,13 +27,14 @@
   root.depth = 0;
   root.children = [NSMutableArray array];
 
-  [self getUser:@"orta" andRepo:@"FUSEHub"];
+//  [self getUser:@"orta" andRepo:@"FUSEHub"];
+  self.mounted = NO;
   
   NSString * tempDir = NSTemporaryDirectory();
   if (tempDir == nil)
     tempDir = @"/tmp";
   
-  NSString * template = [tempDir stringByAppendingPathComponent: @"GSFS.XXXXXX"];
+  NSString * template = [tempDir stringByAppendingPathComponent: @"GHFS.XXXXXX"];
 
   const char * fsTemplate = [template fileSystemRepresentation];
   NSMutableData * bufferData = [NSMutableData dataWithBytes: fsTemplate

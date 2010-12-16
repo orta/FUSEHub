@@ -16,7 +16,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   
-  
 //  FUSE stuff
   NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
   [center addObserver:self selector:@selector(didMount:)
@@ -30,7 +29,7 @@
                                                    forEventClass:kInternetEventClass
                                                       andEventID:kAEGetURL];  
 
-  NSString* mountPath = @"/Volumes/github";
+  mountPath = @"/Volumes/github";
   fileSystem = [[GHFileSystem alloc] init];
   fs_ = [[GMUserFileSystem alloc] initWithDelegate:fileSystem isThreadSafe:YES];
   NSMutableArray* options = [NSMutableArray array];
@@ -43,14 +42,15 @@
 
 - (void)didMount:(NSNotification *)notification {
   NSDictionary* userInfo = [notification userInfo];
-  NSString* mountPath = [userInfo objectForKey:kGMUserFileSystemMountPathKey];
+  mountPath = [userInfo objectForKey:kGMUserFileSystemMountPathKey];
   NSString* parentPath = [mountPath stringByDeletingLastPathComponent];
-  
-//  [[NSWorkspace sharedWorkspace] openFile: mountPath withApplication:@"TextMate"];
-
+  fileSystem.mounted = YES;
   
   [[NSWorkspace sharedWorkspace] selectFile:mountPath
                    inFileViewerRootedAtPath:parentPath];
+  if(openedURL != nil){
+    [self parseStoredURL];
+  }
 }
 
 
@@ -66,8 +66,8 @@
   return NSTerminateNow;
 }
 
-- (void) gotIncomingURL:(NSAppleEventDescriptor*) event withReplyEvent:(NSAppleEventDescriptor *) reply{
-  NSString *incomingURL = [[event descriptorForKeyword: '----'] stringValue];
+- (void) parseStoredURL{
+  NSString *incomingURL = openedURL;
   incomingURL = [incomingURL stringByReplacingOccurrencesOfString:@"fusehub:" withString:@""];
   NSArray *fields = [incomingURL componentsSeparatedByString:@"&"];
   NSEnumerator *e = [fields objectEnumerator];
@@ -77,7 +77,6 @@
     NSArray *keyvalue = [field componentsSeparatedByString:@"="];
     NSString *key = [keyvalue objectAtIndex:0] ;
     NSString *value = [keyvalue objectAtIndex:1];
-    DBLog(@"key = '%@' - value = '%@'", key, value); 
     
     if([key isEqualToString:@"user"]){
       username = value;
@@ -90,6 +89,18 @@
     if([value isEqualToString:@"browse"]){
       [fileSystem getUser:username];
     }
+  }
+}
+- (void) gotIncomingURL:(NSAppleEventDescriptor*) event withReplyEvent:(NSAppleEventDescriptor *) reply{
+  // we want to do this, but we have to be mounted first
+  openedURL =  [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
+  
+  if( fileSystem.mounted ){
+    [self parseStoredURL];
+    
+    NSString* parentPath = [mountPath stringByDeletingLastPathComponent];
+    [[NSWorkspace sharedWorkspace] selectFile:mountPath
+                     inFileViewerRootedAtPath:parentPath];
   }
 }
 

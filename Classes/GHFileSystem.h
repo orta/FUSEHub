@@ -14,13 +14,16 @@
 @interface GHFileSystem : NSObject <GHBlob> {
   GHFile *root;
   NSString * temporaryDirectory;
+  BOOL mounted;
 }
+@property () BOOL mounted;
 
 - (void)addItemToStore:(NSString*) path withUser:(NSString*) user andRepo:(NSString*)repo;
 - (GHFile *)findNodeAtPath:(NSString *) path;
 
-- (void) getUser:(NSString*)user;
-- (void) getUser:(NSString*)user andRepo:(NSString*)repo;
+- (void) getUser:(NSString*) user;
+- (void) getUser:(NSString*) user andRepo:(NSString*)repo;
+- (void) addUser:(NSString*) user;
 
 - (void) print;
 
