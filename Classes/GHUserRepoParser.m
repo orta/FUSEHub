@@ -26,7 +26,7 @@
           // Use when fetching text data
         NSString *responseString = [request responseString];
         NSError * error = nil;
-        NSXMLDocument * xml = [[NSXMLDocument alloc] initWithXMLString:responseString options:nil error:&error];
+        NSXMLDocument * xml = [[NSXMLDocument alloc] initWithXMLString:responseString options:0 error:&error];
         if(error == nil){
 
           NSArray *children = [[xml rootElement] children];

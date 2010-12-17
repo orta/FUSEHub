@@ -122,7 +122,11 @@
     NSFileManager * fm = [NSFileManager defaultManager];
     BOOL isDir = false;
     if([fm fileExistsAtPath:newPath isDirectory:&isDir]){
-      return [fm  fileAttributesAtPath:newPath traverseLink:YES ];      
+      NSError *error = nil;
+      return [fm  attributesOfItemAtPath:newPath error:&error];
+      if(error){
+        DBLog(@"ERROR RE: attributes of item at path %@ ( %@ )", newPath, [error localizedDescription])
+      }
     }
   }
   return nil;
