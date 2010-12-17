@@ -15,8 +15,11 @@
   GHFile *root;
   NSString * temporaryDirectory;
   BOOL mounted;
+  NSString * activity;
 }
+
 @property () BOOL mounted;
+@property (retain) NSString * activity;
 
 - (void)addItemToStore:(NSString*) path withUser:(NSString*) user andRepo:(NSString*)repo;
 - (GHFile *)findNodeAtPath:(NSString *) path;

@@ -16,11 +16,10 @@
 #import "GHUserRepoParser.h"
 
 @implementation GHFileSystem
-@synthesize mounted;
+@synthesize mounted, activity;
 
-- (id) init{
+- (id) init {
   self = [super init];
-  
   
   root = [[GHFile alloc] init];
   root.name = @"root";
@@ -48,7 +47,7 @@
   return self;
 }
 
-- (void) getUser:(NSString*)user{
+- (void) getUser:(NSString*)user {
   GHUserRepoParser * repoparser = [[GHUserRepoParser alloc] initWithUser:user andDelegate:self];
   [self addUser:user];
   [repoparser retain];
@@ -83,11 +82,17 @@
   GHFile * node = [self findNodeAtPath:path];
   if(node.depth == 2){
     if([node.children count] < 1){      
+      //looking for a new repo
       GHBlobParser* parser = [[GHBlobParser alloc] initWithGitHubUser:node.parent.name Repository:node.name andDelegate:self];
       [parser retain];
     }
   }
-  if([[node fileArray] count] ==0 ){
+  
+  if([[root children] count] == 0 ){
+    return [NSArray arrayWithObject:@"Go find a project!..."];
+  }
+  
+  if([[node fileArray] count] == 0 ){
     return [NSArray arrayWithObject:@"Loading..."];
   }
   return [node fileArray];
@@ -143,23 +148,6 @@
   
   return nil;
 }
-
-- (BOOL)createDirectoryAtPath:(NSString *)path
-                   attributes:(NSDictionary *)attributes
-                        error:(NSError **)error {
-  DBLog(@"create dir %@", path);
-  if (!path) {
-    *error = [NSError errorWithPOSIXCode:EINVAL];
-    return NO;
-  }
-  
-  NSString *dirname = [path stringByDeletingLastPathComponent];
-  GHFile * node =[self findNodeAtPath:dirname];
-  if(node.depth >3)
-    return NO;
-  return YES;
-}
-
 
 #pragma helper functions
 
