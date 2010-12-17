@@ -14,8 +14,17 @@
 
 @synthesize window;
 
+- (id) init{
+  self = [super init];
+//  this needs to be set before the app is finished so we get the event
+  [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self
+                                                     andSelector:@selector(gotIncomingURL: withReplyEvent:) 
+                                                   forEventClass:kInternetEventClass
+                                                      andEventID:kAEGetURL];  
+  return self;
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-  
 //  FUSE stuff
   NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
   [center addObserver:self selector:@selector(didMount:)
@@ -24,10 +33,6 @@
                  name:kGMUserFileSystemDidUnmount object:nil];
 
   //Bookmark stuff
-  [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self
-                                                     andSelector:@selector(gotIncomingURL: withReplyEvent:) 
-                                                   forEventClass:kInternetEventClass
-                                                      andEventID:kAEGetURL];  
 
   mountPath = @"/Volumes/github";
   fileSystem = [[GHFileSystem alloc] init];
@@ -37,6 +42,8 @@
   [options addObject:[NSString stringWithFormat:@"volicon=%@", 
                       [[NSBundle mainBundle] pathForResource:@"FS" ofType:@"icns"]]];
   [fs_ mountAtPath:mountPath withOptions:options];
+  
+//  [self setUpGUINotifications];
 }
 
 
@@ -94,7 +101,6 @@
 - (void) gotIncomingURL:(NSAppleEventDescriptor*) event withReplyEvent:(NSAppleEventDescriptor *) reply{
   // we want to do this, but we have to be mounted first
   openedURL =  [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
-  
   if( fileSystem.mounted ){
     [self parseStoredURL];
     
